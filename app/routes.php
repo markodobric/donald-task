@@ -11,6 +11,10 @@
 |
 */
 
+Route::get('tests', 'TestsController@index');
+Route::get('tests/create', 'TestsController@create');
+Route::post('tests/store', 'TestsController@store');
+
 Route::get('/', function()
 {
 	return View::make('hello');

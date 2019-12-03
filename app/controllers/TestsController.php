@@ -11,18 +11,31 @@ class TestsController extends BaseController
         $this->formBuilder = $formBuilder;
     }
 
+    public function index()
+    {
+        return View::make('tests.index', ['form' => $this->getForm(), 'message' => Session::get('message')]);
+    }
+
     public function create()
     {
-        $form = $this->formBuilder->create(TestForm::class, [
-            'method' => 'POST',
-            'url' => route('tests.store')
-        ]);
-
-        return View::make('tests.create', ['form' => $form]);
+        return View::make('tests.create', ['form' => $this->getForm()]);
     }
 
     public function store()
     {
+        $form = $this->getForm();
 
+        Test::create(
+            [
+                'name' => $form->getRequest()->get('name'),
+            ]
+        );
+
+        return Redirect::to('tests')->with('message', 'Test successfully created');
+    }
+
+    private function getForm()
+    {
+        return $this->formBuilder->create(TestForm::class);
     }
 }
