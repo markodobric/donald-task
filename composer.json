@@ -4,7 +4,8 @@
 	"keywords": ["framework", "laravel"],
 	"license": "MIT",
 	"require": {
-		"laravel/framework": "4.2.*"
+		"laravel/framework": "4.2.*",
+		"kris/laravel4-form-builder": "^1.6"
 	},
 	"autoload": {
 		"classmap": [

@@ -124,6 +124,7 @@ return array(
 		'Illuminate\View\ViewServiceProvider',
 		'Illuminate\Workbench\WorkbenchServiceProvider',
 
+        'Kris\LaravelFormBuilder\FormBuilderServiceProvider',
 	),
 
 	/*
@@ -191,6 +192,7 @@ return array(
 		'Validator'       => 'Illuminate\Support\Facades\Validator',
 		'View'            => 'Illuminate\Support\Facades\View',
 
+        'FormBuilder' => 'Kris\LaravelFormBuilder\Facades\FormBuilder',
 	),
 
 );
