@@ -9,7 +9,19 @@
     <div>
       {{ Form::label('name', 'Test Name') }}
       {{ Form::text('name') }}
-      <p>{{ $errors->first('name') }}</p>
+      <p style="color: red; font-size: 12px;">{{ $errors->first('name') }}</p>
+    </div>
+
+    <div>
+      {{ Form::label('question', 'Question #1') }}
+      {{ Form::text('question') }}
+      <p style="color: red; font-size: 12px;">{{ $errors->first('question') }}</p>
+    </div>
+
+    <div>
+      {{ Form::label('question', 'Question #2') }}
+      {{ Form::text('question') }}
+      <p style="color: red; font-size: 12px;">{{ $errors->first('question') }}</p>
     </div>
 
     <div>

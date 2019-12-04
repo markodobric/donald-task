@@ -14,22 +14,33 @@ class TestsController extends BaseController
 
     public function store()
     {
-        $rules = [
+        $test_rules = [
             'name' => 'required|min:2',
+            'question' => 'required',
         ];
 
-        $validator = Validator::make(Input::all(), $rules);
+        $validator = Validator::make(Input::all(), $test_rules);
 
-        if ($validator->fails())
-        {
+        if ($validator->fails()) {
             return Redirect::to('tests/create')->withErrors($validator);
         }
 
-        Test::create(
-            [
+        DB::transaction(function()
+        {
+            $test = Test::create([
                 'name' => Input::get('name'),
-            ]
-        );
+            ]);
+
+            $questions = Input::get('question');
+
+            $data = [];
+            foreach ($questions as $question) {
+                $data[] = new Question(['name' => $question]);
+            }
+
+            $test->questions()->saveMany($data);
+        });
+
 
         return Redirect::to('tests')->with('message', 'Test successfully created');
     }
