@@ -4,6 +4,18 @@
   <h3>Create a Test</h3>
 
   <div class="container">
-    {{ form($form) }}
+    {{ Form::open(array('url' => '/tests/store')) }}
+
+    <div>
+      {{ Form::label('name', 'Test Name') }}
+      {{ Form::text('name') }}
+      <p>{{ $errors->first('name') }}</p>
+    </div>
+
+    <div>
+      {{ Form::submit('Create') }}
+    </div>
+
+    {{ Form::close() }}
   </div>
 @endsection

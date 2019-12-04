@@ -1,41 +1,36 @@
 <?php
 
-use Kris\LaravelFormBuilder\FormBuilder;
-
 class TestsController extends BaseController
 {
-    private $formBuilder;
-
-    public function __construct(FormBuilder $formBuilder)
-    {
-        $this->formBuilder = $formBuilder;
-    }
-
     public function index()
     {
-        return View::make('tests.index', ['form' => $this->getForm(), 'message' => Session::get('message')]);
+        return View::make('tests.index', ['message' => Session::get('message')]);
     }
 
     public function create()
     {
-        return View::make('tests.create', ['form' => $this->getForm()]);
+        return View::make('tests.create');
     }
 
     public function store()
     {
-        $form = $this->getForm();
+        $rules = [
+            'name' => 'required|min:2',
+        ];
+
+        $validator = Validator::make(Input::all(), $rules);
+
+        if ($validator->fails())
+        {
+            return Redirect::to('tests/create')->withErrors($validator);
+        }
 
         Test::create(
             [
-                'name' => $form->getRequest()->get('name'),
+                'name' => Input::get('name'),
             ]
         );
 
         return Redirect::to('tests')->with('message', 'Test successfully created');
-    }
-
-    private function getForm()
-    {
-        return $this->formBuilder->create(TestForm::class);
     }
 }
